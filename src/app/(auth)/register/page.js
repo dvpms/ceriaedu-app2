@@ -17,6 +17,7 @@ import {
 import Card from '@/components/ui/Card'
 import Input from '@/components/ui/Input'
 import Button from '@/components/ui/Button'
+import Swal from 'sweetalert2'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -38,34 +39,65 @@ export default function RegisterPage() {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    setError('')
+    setError("");
+
+    // Lazy import sweetalert2
 
     if (form.password !== form.confirmPassword) {
-      setError('Konfirmasi kata sandi tidak cocok')
-      return
+      setError('Konfirmasi kata sandi tidak cocok');
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: 'Konfirmasi kata sandi tidak cocok',
+      });
+      return;
     }
 
-    setLoading(true)
+    setLoading(true);
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          password: form.password,
+        }),
+      });
 
-    const res = await fetch('/api/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: form.name,
-        email: form.email,
-        password: form.password,
-      }),
-    })
+      setLoading(false);
 
-    setLoading(false)
+      if (!res.ok) {
+        let msg = 'Registrasi gagal';
+        try {
+          const data = await res.json();
+          msg = data.error || msg;
+        } catch {}
+        setError(msg);
+        Swal.fire({
+          icon: 'error',
+          title: 'Gagal',
+          text: msg,
+        });
+        return;
+      }
 
-    if (!res.ok) {
-      const data = await res.json()
-      setError(data.error || 'Registrasi gagal')
-      return
+      await Swal.fire({
+        icon: 'success',
+        title: 'Registrasi Berhasil',
+        text: 'Akun berhasil dibuat. Silakan login.',
+        confirmButtonText: 'OK',
+      });
+      router.push('/login');
+    } catch (err) {
+      setLoading(false);
+      setError('Terjadi kesalahan jaringan');
+      Swal.fire({
+        icon: 'error',
+        title: 'Gagal',
+        text: 'Terjadi kesalahan jaringan',
+      });
     }
-
-    router.push('/login')
   }
 
   return (
