@@ -1,11 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
-import { useSelector } from 'react-redux'
 import Card from '@/components/ui/Card'
 import Badge from '@/components/ui/Badge'
-import { Bell, Plus, Star, UserRound } from 'lucide-react'
+import { Plus, Star, UserRound } from 'lucide-react'
 
 const testimonials = [
   {
@@ -59,38 +57,8 @@ function Stars({ value }) {
 }
 
 export default function DashboardPage() {
-  const { data: session } = useSession()
-  const user = useSelector((state) => state.auth.user)
-  const displayUser = user ?? session?.user
-  const initial = (displayUser?.name ?? 'S').trim().charAt(0).toUpperCase()
-
   return (
     <div className="w-full">
-      {/* Mobile top header (desktop header is provided by StudentNavigation) */}
-      <header className="md:hidden bg-primary text-on-primary rounded-b-3xl shadow-[0_4px_12px_rgba(0,93,167,0.08)]">
-        <div className="px-6 pt-5 pb-6 flex items-center justify-between">
-          <span className="text-2xl font-extrabold tracking-tight">CeriaEdu</span>
-
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="h-11 w-11 inline-flex items-center justify-center rounded-full bg-on-primary/10 hover:bg-on-primary/20"
-              aria-label="Notifikasi"
-            >
-              <Bell className="size-5" aria-hidden="true" />
-            </button>
-
-            <button
-              type="button"
-              className="h-11 w-11 inline-flex items-center justify-center rounded-full bg-on-primary/10 hover:bg-on-primary/20 font-bold"
-              aria-label="Profil"
-            >
-              {initial}
-            </button>
-          </div>
-        </div>
-      </header>
-
       <div className="max-w-4xl mx-auto px-6 py-6 flex flex-col gap-6">
         {/* Hero */}
         <Card className="bg-primary-fixed">

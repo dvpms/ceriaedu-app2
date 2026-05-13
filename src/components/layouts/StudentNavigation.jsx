@@ -3,14 +3,15 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useSelector } from 'react-redux'
-import { Home, BookOpen, Trophy, User } from 'lucide-react'
+import { Home, BookOpen, Trophy, User, MessageCircleQuestionMark, Gamepad2  } from 'lucide-react'
 import clsx from 'clsx'
 
 const navLinks = [
-  { href: '/student/dashboard', label: 'Dashboard', icon: Home },
-  { href: '/student/subjects', label: 'Subjects', icon: BookOpen },
-  { href: '/student/leaderboard', label: 'Leaderboard', icon: Trophy },
-  { href: '/student/profile', label: 'Profile', icon: User },
+  { href: '/student/dashboard', label: 'Beranda', icon: Home },
+  { href: '/student/subjects', label: 'Materi', icon: BookOpen },
+  { href: '/student/quizzes', label: 'Kuis', icon: MessageCircleQuestionMark },
+  { href: '/student/games', label: 'Games', icon: Gamepad2 },
+  { href: '/student/leaderboard', label: 'Peringkat', icon: Trophy },
 ]
 
 function NavLink({ href, label, icon: Icon, active, mobile }) {
@@ -45,8 +46,10 @@ export default function StudentNavigation() {
   return (
     <>
       {/* Desktop top bar */}
-      <header className="hidden md:flex fixed top-0 left-0 right-0 z-40 h-16 bg-primary items-center justify-between px-6 shadow-[0_4px_12px_rgba(0,93,167,0.08)]">
-        <span className="text-on-primary font-bold text-lg">CeriaEdu</span>
+      <header className="hidden md:flex fixed top-0 left-0 right-0 z-40 h-16 bg-primary items-center justify-between px-6 shadow-md">
+        <Link href="/student/dashboard" aria-label="Ke Dashboard" className="text-on-primary font-bold text-lg hover:opacity-95">
+          CeriaEdu
+        </Link>
         <nav className="flex items-center gap-1">
           {navLinks.map((link) => (
             <NavLink
