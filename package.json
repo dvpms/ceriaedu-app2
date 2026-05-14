@@ -10,7 +10,13 @@
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "seed": "prisma db seed"
+    "seed": "node --env-file=.env --import tsx/esm prisma/seed.js",
+    "seed:prod": "node --env-file=.env.prod --import tsx/esm prisma/seed.js",
+    "migrate": "prisma migrate deploy",
+    "migrate:prod": "dotenv -e .env.prod -- prisma migrate deploy"
+  },
+  "prisma": {
+    "seed": "node --env-file=.env --import tsx/esm prisma/seed.js"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",
@@ -22,10 +28,18 @@
     "@prisma/client": "^7.8.0",
     "@reduxjs/toolkit": "^2.11.2",
     "@tailwindcss/postcss": "4.2.2",
+    "@tiptap/extension-color": "^3.23.4",
+    "@tiptap/extension-text-align": "^3.23.4",
+    "@tiptap/extension-text-style": "^3.23.4",
+    "@tiptap/extension-underline": "^3.23.2",
+    "@tiptap/pm": "^3.23.2",
+    "@tiptap/react": "^3.23.2",
+    "@tiptap/starter-kit": "^3.23.2",
     "bcryptjs": "^3.0.3",
     "cloudinary": "^2.10.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
+    "install": "^0.13.0",
     "lucide-react": "^0.563.0",
     "next": "15.5.15",
     "next-auth": "^4.24.14",
@@ -37,9 +51,6 @@
     "react-redux": "^9.2.0",
     "sweetalert2": "^11.26.24",
     "tailwindcss": "4.2.2"
-  },
-  "prisma": {
-    "seed": "node prisma/seed.js"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.2",
