@@ -90,9 +90,9 @@ export default function SubjectsPage() {
             Kelola subject dan materi pembelajaran dalam satu tempat
           </p>
         </div>
-        <Button onClick={() => setSubjectModal({ open: true, subject: null })}>
-          <Plus size={16} className="mr-2" />
-          Tambah Subject
+        <Button onClick={() => setSubjectModal({ open: true, subject: null })} className="flex items-center">
+          <Plus size={16} className="mr-2 " />
+          Subject
         </Button>
       </div>
 
@@ -166,12 +166,13 @@ export default function SubjectsPage() {
                     <Button
                       variant="ghost"
                       size="sm"
+                      className="flex items-center"
                       onClick={() =>
                         setMaterialModal({ open: true, material: null, subjectId: subject.id })
                       }
                     >
                       <Plus size={14} className="mr-1" />
-                      Tambah Materi
+                      Materi
                     </Button>
                   </div>
 
@@ -236,6 +237,7 @@ export default function SubjectsPage() {
       <Modal
         isOpen={subjectModal.open}
         onClose={() => setSubjectModal({ open: false, subject: null })}
+        size="md"
       >
         <h2 className="text-lg font-semibold text-on-surface mb-4">
           {subjectModal.subject ? 'Edit Subject' : 'Tambah Subject'}
@@ -252,6 +254,7 @@ export default function SubjectsPage() {
       <Modal
         isOpen={materialModal.open}
         onClose={() => setMaterialModal({ open: false, material: null, subjectId: null })}
+        size="lg"
       >
         <h2 className="text-lg font-semibold text-on-surface mb-4">
           {materialModal.material ? 'Edit Materi' : 'Tambah Materi'}
