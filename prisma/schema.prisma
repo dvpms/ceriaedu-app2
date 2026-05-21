@@ -93,6 +93,7 @@ model ActivityLog {
 enum Role {
   STUDENT
   ADMIN
+  TEACHER
 }
 
 enum QuizType {
