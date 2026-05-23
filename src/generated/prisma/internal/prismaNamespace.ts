@@ -1083,7 +1083,8 @@ export const QuizScalarFieldEnum = {
   materialId: 'materialId',
   subjectId: 'subjectId',
   title: 'title',
-  type: 'type'
+  type: 'type',
+  questionCount: 'questionCount'
 } as const
 
 export type QuizScalarFieldEnum = (typeof QuizScalarFieldEnum)[keyof typeof QuizScalarFieldEnum]

@@ -42,15 +42,16 @@ model Material {
 }
 
 model Quiz {
-  id          String       @id @default(cuid())
-  materialId  String?
-  subjectId   String?
-  title       String
-  type        QuizType     @default(MULTIPLE_CHOICE)
-  material    Material?    @relation(fields: [materialId], references: [id])
-  subject     Subject?     @relation(fields: [subjectId], references: [id])
-  questions   Question[]
-  submissions Submission[]
+  id            String       @id @default(cuid())
+  materialId    String?
+  subjectId     String?
+  title         String
+  type          QuizType     @default(MULTIPLE_CHOICE)
+  questionCount Int          @default(10)
+  material      Material?    @relation(fields: [materialId], references: [id])
+  subject       Subject?     @relation(fields: [subjectId], references: [id])
+  questions     Question[]
+  submissions   Submission[]
 }
 
 model Question {
