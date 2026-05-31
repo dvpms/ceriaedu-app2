@@ -11,7 +11,9 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "seed": "node --env-file=.env --import tsx/esm prisma/seed.js",
+    "seed:games": "node --env-file=.env --import tsx/esm prisma/seed-games.js",
     "seed:prod": "node --env-file=.env.prod --import tsx/esm prisma/seed.js",
+    "seed:games:prod": "node --env-file=.env.prod --import tsx/esm prisma/seed-games.js",
     "migrate": "prisma migrate deploy",
     "migrate:prod": "dotenv -e .env.prod -- prisma migrate deploy"
   },
