@@ -61,13 +61,6 @@ export default function GamesPage() {
                     <p className="text-sm text-on-surface-variant mt-0.5 line-clamp-2">
                       {game.description}
                     </p>
-                    <div className="flex items-center gap-1 mt-2">
-                      {(game.levels ?? []).map((level) => (
-                        <span key={level.id} className="text-xs text-on-surface-variant">
-                          {'⭐'.repeat(level.difficulty)}
-                        </span>
-                      ))}
-                    </div>
                   </div>
                   <ArrowRight
                     size={18}
