@@ -42,6 +42,30 @@ export default function ImageUpload({ onUpload, currentUrl, folder = 'ceriaedu' 
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
 
+  function syncPreview(url) {
+    setPreview(url ?? null)
+  }
+
+  async function handleDeleteImage() {
+    if (!preview) return
+
+    setError('')
+    setIsLoading(true)
+
+    try {
+      await deleteFromCloudinary(preview)
+      syncPreview(null)
+      onUpload?.(null)
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    } catch {
+      setError('Gagal menghapus gambar')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   async function handleFileChange(e) {
     const file = e.target.files?.[0]
     if (!file) return
@@ -80,11 +104,21 @@ export default function ImageUpload({ onUpload, currentUrl, folder = 'ceriaedu' 
   return (
     <div className="flex flex-col gap-3">
       {preview && (
-        <img
-          src={preview}
-          alt="Preview"
-          className="w-full max-h-48 object-cover rounded-xl border border-outline-variant"
-        />
+        <div className="relative">
+          <img
+            src={preview}
+            alt="Preview"
+            className="w-full max-h-48 object-cover rounded-xl border border-outline-variant"
+          />
+          <button
+            type="button"
+            onClick={handleDeleteImage}
+            disabled={isLoading}
+            className="absolute right-2 top-2 rounded-full bg-error px-3 py-1 text-xs font-semibold text-white shadow-sm disabled:opacity-60"
+          >
+            {isLoading ? 'Menghapus...' : 'Hapus'}
+          </button>
+        </div>
       )}
       <input
         ref={fileInputRef}
